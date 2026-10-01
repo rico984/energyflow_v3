@@ -96,10 +96,10 @@ with tab1:
   flow(2,4,r.p_ac,'rgba(44,160,44,.7)') if r.p_ac>=0 else flow(4,2,-r.p_ac,'rgba(31,119,180,.7)')
   flow(2,5,r.losses,'rgba(214,39,40,.6)')
   fig=go.Figure(go.Sankey(node=dict(label=labels,pad=18,thickness=22),link=dict(source=s,target=t,value=v,color=colors)))
-  fig.update_layout(title='Leistungsfluss [W]',height=460,margin=dict(l=10,r=10,t=45,b=10));st.plotly_chart(fig,width=True)
+  fig.update_layout(title='Leistungsfluss [W]',height=460,margin=dict(l=10,r=10,t=45,b=10));st.plotly_chart(fig,use_container_width=True)
  with right:
   g=go.Figure(go.Indicator(mode='gauge+number+delta',value=r.p_ac,delta={'reference':pac},title={'text':'AC-Leistung [W]'},gauge={'axis':{'range':[-4600,4600]},'threshold':{'line':{'color':'red','width':4},'value':pac}}))
-  g.update_layout(height=300);st.plotly_chart(g,width=True)
+  g.update_layout(height=300);st.plotly_chart(g,use_container_width=True)
   st.write(f'Ladegrenze: **{r.charge_limit:,.0f} W**')
   st.write(f'Entladegrenze: **{r.discharge_limit:,.0f} W**')
   st.write(f'Verluste: **{r.losses:,.0f} W**')
@@ -162,7 +162,7 @@ with tab2:
  scheduled_points=int((dyn['Aktives Zeitfenster']>0).sum())
  curtailed_energy=(dyn['Abregelung [W]'].sum()*resolution_min/60)/1000
  st.caption(f'Aktive Fahrplanpunkte: **{scheduled_points}** | Abgeregelte PV-Energie im dargestellten Zeitraum: **{curtailed_energy:.2f} kWh**')
- fig.add_hline(y=0,line_color='gray');fig.update_layout(height=520,hovermode='x unified',xaxis_title='Datum und Uhrzeit',yaxis_title='Leistung [W]');st.plotly_chart(fig,width=True)
+ fig.add_hline(y=0,line_color='gray');fig.update_layout(height=520,hovermode='x unified',xaxis_title='Datum und Uhrzeit',yaxis_title='Leistung [W]');st.plotly_chart(fig,use_container_width=True)
  st.download_button('Szenario als CSV',dyn.to_csv(index=False,sep=';',decimal=',').encode('utf-8-sig'),'szenario.csv','text/csv')
 
 with st.expander('Modellannahmen'):
